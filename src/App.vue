@@ -2,9 +2,44 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+		<!-- {{rubrics}}
+		<ul>
+			<li v-for="rubric in rubrics">Рубричка {{rubric.RubricId}}</li>
+		</ul> -->
   </div>
   <router-view/>
 </template>
+
+
+
+
+
+<script>
+	// export default {
+	// 	data() {
+  //   return {
+  //     rubrics: []
+  //   }
+  // },
+  // created() {
+  //   const url = 'https://www.klerk.ru/yindex.php/v3/event/rubrics';
+  //   this.$http.get(url).then(data => {
+  //     const items = JSON.parse(data.response).Items
+  //     items.map(item => {
+  //       // push to the projects array to make sure Vue's reactivity works
+  //       this.rubrics.push(item)
+  //     })
+  //   })
+  // }
+
+	// }
+</script>
+
+
+
+
+
+
 
 <style>
 #app {
