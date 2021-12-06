@@ -1,65 +1,43 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-		<!-- {{rubrics}}
-		<ul>
-			<li v-for="rubric in rubrics">Рубричка {{rubric.RubricId}}</li>
-		</ul> -->
-  </div>
-  <router-view/>
+	<Layout>
+		<h2 class="mb-8 text-4xl font-bold text-center capitalize">
+			News Section : <span class="text-green-700">{{ section }}</span>
+		</h2>
+		<NewsFilter v-model="section" />
+		<NewsList :posts="posts" />
+	</Layout>
 </template>
 
-
-
-
-
 <script>
-	// export default {
-	// 	data() {
-  //   return {
-  //     rubrics: []
-  //   }
-  // },
-  // created() {
-  //   const url = 'https://www.klerk.ru/yindex.php/v3/event/rubrics';
-  //   this.$http.get(url).then(data => {
-  //     const items = JSON.parse(data.response).Items
-  //     items.map(item => {
-  //       // push to the projects array to make sure Vue's reactivity works
-  //       this.rubrics.push(item)
-  //     })
-  //   })
-  // }
+import Layout from "./components/Layout.vue";
+import NewsFilter from "./components/NewsFilter.vue";
+import NewsList from "./components/NewsList.vue";
 
-	// }
+import data from "./posts.json";
+
+import axios from "axios";
+
+export default {
+	components: {
+		Layout,
+		NewsFilter,
+		NewsList,
+	},
+	data() {
+		return {
+			section: "home",
+			posts: null,
+		};
+	},
+	mounted() {
+		axios
+			.get(
+				"https://api.nytimes.com/svc/topstories/v2/home.json?api-key=your_api_key"
+			)
+			.then((response) => (this.posts = response));
+	},
+};
 </script>
 
-
-
-
-
-
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
