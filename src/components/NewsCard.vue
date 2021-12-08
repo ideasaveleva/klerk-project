@@ -14,10 +14,14 @@
 			"
 		>
 			<div>{{ post.id }}</div>
-			<a class="font-bold" :href="`https://www.klerk.ru${post.url}`">{{
-				post.title
-			}}</a>
-			<div class="font-bold">Количество: {{ post.count }}</div>
+			<div class="flex">
+				<a class="font-bold pr-2" :href="`https://www.klerk.ru${post.url}`">
+					{{ post.title }}
+				</a>
+				<div class="font-bold">
+					({{ post.count }} {{ _.sum(children.count) }})
+				</div>
+			</div>
 			<div class="font-bold pr-2">
 				Документы:
 
