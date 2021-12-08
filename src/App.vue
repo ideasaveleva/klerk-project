@@ -3,7 +3,7 @@
 		<h2 class="mb-8 text-4xl font-bold text-center capitalize">
 			News Section : <span class="text-green-700">{{}}</span>
 		</h2>
-		<NewsList :posts="posts" />
+		<NewsList />
 	</Layout>
 </template>
 
