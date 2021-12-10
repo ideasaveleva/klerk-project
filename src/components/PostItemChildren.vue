@@ -22,8 +22,14 @@
 				{{ child.title }}
 			</a>
 			<span class="font-bold">
-				({{ child.count }}, {{ CountNumbers(child.children) }})
+				(
+				{{ child.count }}
+				<template v-if="child.children && child.children.length > 0">
+					, {{ CountNumbers(child.count, child.children) }}
+				</template>
+				)
 			</span>
+			<check-box :label="label" />
 		</div>
 		<div v-if="on_off.includes(child.id)">
 			<post-item-children :children="child.children"></post-item-children>
@@ -33,8 +39,10 @@
 
 <script>
 import _sumBy from "lodash/sumBy";
+import CheckBox from "./CheckBox.vue";
 
 export default {
+	components: { CheckBox },
 	props: {
 		children: {
 			type: Array,
@@ -43,6 +51,7 @@ export default {
 	},
 	data() {
 		return {
+			label: "",
 			on_off: [],
 		};
 	},
@@ -55,8 +64,9 @@ export default {
 				this.on_off.splice(index, 1);
 			}
 		},
-		CountNumbers(children) {
-			return _sumBy(children, "count");
+		CountNumbers(count, children) {
+			let childrenCount = _sumBy(children, "count");
+			return count + childrenCount;
 		},
 	},
 };
