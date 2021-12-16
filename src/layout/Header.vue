@@ -9,13 +9,13 @@
 		</a>
 		<a
 			class="ml-8 text-lg font-bold text-green-100 md:text-xl"
-			@click="$router.push('/store')"
+			@click="$router.push('./store')"
 		>
 			Store
 		</a>
 		<a
 			class="ml-8 text-lg font-bold text-green-100 md:text-xl"
-			@click="$router.push('/task')"
+			@click="$router.push('./task')"
 		>
 			Тестовое задание
 		</a>
