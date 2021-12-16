@@ -1,34 +1,37 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex';
 
-// export default createStore({
-//   state: {
-//     сhecked: false,
-//   },
-//   getters: {
-//     isChecked() {
-//       if (this.modelValue instanceof Array) {
-//         return this.modelValue.includes(this.value);
-//       }
-//       // Note that `true-value` and `false-value` are camelCase in the JS
-//       return this.modelValue === this.trueValue;
-//     },
-//   },
-//   mutations: {
-//     updateInput(event) {
-//       let isChecked = event.target.checked;
-//       if (this.modelValue instanceof Array) {
-//         let newValue = [...this.modelValue];
-//         if (isChecked) {
-//           newValue.push(this.value);
-//         } else {
-//           newValue.splice(newValue.indexOf(this.value), 1);
-//         }
-//         this.$emit("change", newValue);
-//       } else {
-//         this.$emit("change", isChecked ? this.trueValue : this.falseValue);
-//       }
-//     },
-//   },
-//   actions: {},
-//   modules: {},
-// });
+import _filter from 'lodash/filter';
+
+import { posts } from './posts.module';
+import { check } from './check.module';
+import { count } from './count.module';
+
+export default createStore({
+    getters: {
+        postBuild: state => {
+            return _filter(state.posts.posts, e => {
+                if (!state.check.checked) {
+                    if (e.children && e.children.length > 0) {
+                        return e;
+                    } else if (!e.children) {
+                        return e;
+                    } else {
+                        if (state.count.data.includes(e.id)) {
+                            let index = state.count.data.indexOf(e.id);
+                            state.count.data.splice(index, 1);
+                            state.count.count = state.count.count - e.count;
+                        };
+                        console.log(e.id);
+                    };
+                } else {
+                    return e;
+                };
+            });
+        }
+    },
+    modules: {
+        posts,
+        check,
+        count
+    }
+});

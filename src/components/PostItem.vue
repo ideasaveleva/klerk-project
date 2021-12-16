@@ -1,85 +1,60 @@
 <template>
-	<div v-for="post in posts" :key="post.id" class="">
+	<div v-for="post in postsBuild" :key="post.id" class="p-2 pl-4">
 		<div class="flex">
-			<!-- <template v-if="!checked"> -->
-
 			<template v-if="post.children && post.children.length > 0">
-				<template v-if="!on_off.includes(post.id)">
-					<img
-						class="inline-block"
-						v-on:click="OnOff(post.id)"
-						src="../assets/arrow-right-s-line.svg"
-						alt="icon"
-					/>
-				</template>
-				<template v-else>
-					<img
-						v-on:click="OnOff(post.id)"
-						src="../assets/arrow-down-s-line.svg"
-						alt="icon"
-					/>
-				</template>
+				<span
+					v-on:click="ShowHide(post.id)"
+					:class="{
+						hide: !show_hide.includes(post.id),
+						show: show_hide.includes(post.id),
+					}"
+					class="arrow"
+				></span>
+			</template>
+			<template v-else>
+				<span class="child"></span>
 			</template>
 
 			<a class="font-bold pr-2" :href="`https://www.klerk.ru${post.url}`">
 				{{ post.title }}
 			</a>
 			<span class="font-bold">
-				(
-				{{ post.count }}
-				<template v-if="post.children && post.children.length > 0">
-					, {{ CountNumbers(post.count, post.children) }}
-				</template>
-				)
+				{{ CountNumbers(post.count, post.children) }}
 			</span>
-			<check-box :label="label" class="" />
+			<label class="flex items-center">
+				<input
+					v-on:click="countChange(post)"
+					class="mx-2"
+					type="checkbox"
+					:checked="$store.state.count.data.includes(post.id)"
+				/>
+			</label>
 		</div>
-		<div v-if="on_off.includes(post.id) && !checked">
-			<post-item-children :children="post.children"></post-item-children>
+		<div v-if="show_hide.includes(post.id)">
+			<post-item
+				:posts="post.children"
+				:checked="$store.state.count.data.includes(post.id)"
+			></post-item>
 		</div>
 	</div>
 </template>
 
-<script>
-import _sumBy from "lodash/sumBy";
-import PostItemChildren from "@/components/PostItemChildren";
-import CheckBox from "./CheckBox.vue";
+<script scoped>
+import mixins from "@/mixins";
 
 export default {
-	components: {
-		PostItemChildren,
-		CheckBox,
-	},
 	props: {
 		posts: {
 			type: Array,
 			required: true,
 		},
-		checked: false,
 	},
-	data() {
-		return {
-			label: "Суммa отмеченных элементов",
-			on_off: [1],
-		};
-	},
-	methods: {
-		OnOff(id) {
-			if (!this.on_off.includes(id)) {
-				this.on_off.push(id);
-			} else {
-				let index = this.on_off.indexOf(id);
-				this.on_off.splice(index, 1);
-			}
-		},
-		CountNumbers(count, children) {
-			let childrenCount = _sumBy(children, "count");
-			return count + childrenCount;
-		},
-	},
-	mounted() {
-		console.log(this.posts);
-	},
+	mixins: [
+		mixins.post_build,
+		mixins.show_hide,
+		mixins.count_change,
+		mixins.count_numbers,
+	],
 };
 </script>
 

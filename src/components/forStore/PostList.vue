@@ -7,7 +7,7 @@
 		<h2 class="pb-2 text-xl">
 			Суммa отмеченных элементов: {{ $store.state.count.count }}
 		</h2>
-		<div v-for="post in postsBuild" :key="post.id" class="p-2">
+		<div v-for="post in $store.getters.postBuild" :key="post.id" class="p-2">
 			<div class="flex">
 				<template v-if="post.children && post.children.length > 0">
 					<span
@@ -36,39 +36,68 @@
 						type="checkbox"
 						:checked="$store.state.count.data.includes(post.id)"
 					/>
+					<h2 class="">Отметить</h2>
 				</label>
 			</div>
 			<div v-if="show_hide.includes(post.id)">
-				<post-item :posts="post.children"></post-item>
+				<post-item :children="post.children"></post-item>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script scoped>
-import PostItem from "@/components/PostItem";
-import posts from "@/app.js";
+<script>
+import PostItem from "@/components/forStore/PostItem";
 
-import mixins from "@/mixins";
+import _sumBy from "lodash/sumBy";
 
 export default {
 	components: {
 		PostItem,
 	},
-	mixins: [
-		mixins.post_build,
-		mixins.show_hide,
-		mixins.count_change,
-		mixins.count_numbers,
-		mixins.check_change,
-	],
 	data() {
 		return {
-			posts: posts,
+			checked_item: false,
+			show_hide: [1],
 		};
 	},
-	mounted() {
-		console.log(mixins);
+	methods: {
+		checkChange() {
+			this.$store.dispatch("check/checkChange");
+		},
+		ShowHide(id) {
+			if (!this.show_hide.includes(id)) {
+				this.show_hide.push(id);
+			} else {
+				let index = this.show_hide.indexOf(id);
+				this.show_hide.splice(index, 1);
+			}
+		},
+		CountNumbers(count, children) {
+			let string = "";
+			let childrenCount = _sumBy(children, (e) => {
+				if (this.$store.state.check.checked) {
+					return e.count;
+				} else {
+					if (e.children && e.children.length > 0) {
+						return e.count;
+					}
+					if (!e.children) {
+						return e.count;
+					}
+				}
+			});
+			string = childrenCount
+				? "(" + count + ", " + childrenCount + ")"
+				: "(" + count + ")";
+			return string;
+		},
+		countChange(item) {
+			this.$store.dispatch("count/countChange", {
+				id: item.id,
+				count: item.count,
+			});
+		},
 	},
 };
 </script>
