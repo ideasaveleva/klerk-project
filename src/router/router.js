@@ -1,5 +1,6 @@
 import PostPage from "@/pages/PostPage";
 import PostPageWithStore from "@/pages/PostPageWithStore";
+import TestTask from "@/pages/TestTask";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -10,6 +11,10 @@ const routes = [
   {
     path: "/store",
     component: PostPageWithStore,
+  },
+  {
+    path: "/task",
+    component: TestTask,
   },
 ];
 
