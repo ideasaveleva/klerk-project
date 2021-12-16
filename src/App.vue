@@ -19,7 +19,7 @@ export default {
 
 <style>
 a:hover {
-	color: brown;
+	color: rgb(233, 101, 24);
 }
 
 label {
