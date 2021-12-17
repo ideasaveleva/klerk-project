@@ -52,6 +52,7 @@ import posts from "@/app.js";
 import mixins from "@/mixins";
 
 export default {
+	name: "post-list",
 	components: {
 		PostItem,
 	},

@@ -35,6 +35,7 @@
 import mixins from "@/mixins";
 
 export default {
+	name: 'post-item',
 	props: {
 		posts: {
 			type: Array,

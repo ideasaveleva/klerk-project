@@ -37,6 +37,7 @@ import _sumBy from "lodash/sumBy";
 import _filter from "lodash/filter";
 
 export default {
+	name: 'post-item',
 	props: {
 		children: {
 			type: Array,

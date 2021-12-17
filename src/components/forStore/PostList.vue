@@ -52,6 +52,7 @@ import PostItem from "@/components/forStore/PostItem";
 import _sumBy from "lodash/sumBy";
 
 export default {
+	name: 'post-list',
 	components: {
 		PostItem,
 	},
