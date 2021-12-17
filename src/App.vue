@@ -1,8 +1,10 @@
 <template>
 	<Layout>
-		<h2 class="mb-8 text-4xl font-bold text-center capitalize">
-			Klerk.ru : <span class="text-green-700">{{}}</span>
-		</h2>
+		<a
+			href="https://www.klerk.ru/"
+			class="mb-8 text-4xl font-bold text-center capitalize block"
+			>Klerk.ru:</a
+		>
 		<router-view></router-view>
 	</Layout>
 </template>
