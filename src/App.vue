@@ -32,12 +32,12 @@ label {
 }
 
 .hide {
-	background: url("./assets/arrow-right-s-line.svg");
+	background: url("./assets/arrow-right-s-line.png");
 	background-repeat: no-repeat;
 }
 
 .show {
-	background: url("./assets/arrow-down-s-line.svg");
+	background: url("./assets/arrow-down-s-line.png");
 	background-repeat: no-repeat;
 }
 
