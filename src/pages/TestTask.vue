@@ -1,5 +1,5 @@
 <template>
-	<div class="flex-grow task px-4 py-8 md:px-20 md:py-20">
+	<div class="flex-grow task px-4 py-8 md:px-20 md:py-20 shadow-md">
 		<h1 class="font-bold text-3xl pb-4">
 			Тестовое задание на позицию <br />«Frontend-разработчик»
 		</h1>

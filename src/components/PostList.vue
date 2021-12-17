@@ -10,14 +10,14 @@
 		<div v-for="post in postsBuild" :key="post.id" class="p-2">
 			<div class="flex">
 				<template v-if="post.children && post.children.length > 0">
-					<span
+					<i
 						v-on:click="ShowHide(post.id)"
 						:class="{
-							hide: !show_hide.includes(post.id),
-							show: show_hide.includes(post.id),
+							'ri-arrow-right-s-line': !show_hide.includes(post.id),
+							'ri-arrow-down-s-line': show_hide.includes(post.id),
 						}"
 						class="arrow"
-					></span>
+					></i>
 				</template>
 				<template v-else>
 					<span class="child"></span>
@@ -68,7 +68,7 @@ export default {
 		};
 	},
 	mounted() {
-		console.log(mixins);
+		// console.log(mixins);
 	},
 };
 </script>

@@ -2,14 +2,14 @@
 	<div v-for="child in childrenBuild" :key="child.id" class="p-2 pl-4">
 		<div class="flex">
 			<template v-if="child.children && child.children.length > 0">
-				<span
+				<i
 					v-on:click="ShowHide(child.id)"
 					:class="{
-						hide: !show_hide.includes(child.id),
-						show: show_hide.includes(child.id),
+						'ri-arrow-right-s-line': !show_hide.includes(child.id),
+						'ri-arrow-down-s-line': show_hide.includes(child.id),
 					}"
 					class="arrow"
-				></span>
+				></i>
 			</template>
 			<template v-else>
 				<span class="child"></span>
@@ -22,20 +22,12 @@
 				{{ CountNumbers(child.count, child.children) }}
 			</span>
 			<label class="flex items-center">
-				<input
-					v-on:click="countChange(child)"
-					class="mx-2"
-					type="checkbox"
-					:checked="$store.state.count.data.includes(child.id)"
-				/>
+				<input v-on:click="countChange(child)" class="mx-2" type="checkbox" />
 				<h2 class="">Отметить</h2>
 			</label>
 		</div>
 		<div v-if="show_hide.includes(child.id)">
-			<post-item
-				:children="child.children"
-				:checked="$store.state.count.data.includes(child.id)"
-			></post-item>
+			<post-item :children="child.children"></post-item>
 		</div>
 	</div>
 </template>
